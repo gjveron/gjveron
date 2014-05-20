@@ -1,0 +1,24 @@
+application: gjveron
+version: 8
+runtime: python27
+threadsafe: yes
+api_version: 1
+
+handlers:
+#- url: /error
+#  script: error.errorapplication
+
+- url: /blockjs
+  static_dir: blockjs
+ 
+- url: /
+  static_files: home/index.html
+  upload: home/index.html
+
+- url: /
+  static_dir: home
+  
+
+libraries:
+- name: webapp2
+  version: "2.5.2"

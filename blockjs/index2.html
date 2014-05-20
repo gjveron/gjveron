@@ -1,0 +1,11 @@
+
+<h1>html 2</h1>
+<script>
+var fffd = document.write;
+var fffst = window.setTimeout;
+var fffsi = window.setInterval;
+document.write = function(){console.log("write", arguments);fffd.apply(this, arguments);}
+window.setTimeout = function(){console.log("setTimeout", arguments);fffst.apply(this, arguments);}
+window.setInterval = function(){console.log("setInterval", arguments);fffsi.apply(this, arguments);}
+</script>
+<script src="http://cdncache-a.akamaihd.net/loaders/1931/l.js?aoi=1311798366&pid=1931&zoneid=525444"></script>

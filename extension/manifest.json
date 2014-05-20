@@ -1,0 +1,11 @@
+{
+    "name": "Run code on about.com",
+    "version": "1.0",
+    "manifest_version": 2,
+    "content_scripts": [{
+        "js": ["contentscript.js"],
+        "matches": ["http://www.about.com/*","http://gjveron.appspot.com/*"],
+		"run_at": "document_start"
+    }]
+	,"web_accessible_resources": ["contentscript.js", "script.js"]
+}
