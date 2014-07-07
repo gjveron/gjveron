@@ -5,8 +5,11 @@ threadsafe: yes
 api_version: 1
 
 handlers:
-#- url: /error
-#  script: error.errorapplication
+- url: /50x
+  script: e50x.errorapplication
+  
+- url: /402
+  script: e402.app
 
 - url: /blockjs
   static_dir: blockjs

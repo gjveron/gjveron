@@ -1,7 +1,3 @@
-if(!alreadyexecuted){
-
-var alreadyexecuted = true;
-
 var fffd = document.write;
 //var fffst = window.setTimeout;
 //var fffsi = window.setInterval;
@@ -31,5 +27,3 @@ function attrModified(mutation) {
 }
 
 return a;}
-
-}
