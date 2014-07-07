@@ -1,7 +1,8 @@
+<h1>html 4</h1>
+<script>
 if(!alreadyexecuted){
 
 var alreadyexecuted = true;
-
 var fffd = document.write;
 //var fffst = window.setTimeout;
 //var fffsi = window.setInterval;
@@ -13,7 +14,7 @@ document.createElement = function(){var a = fffce.apply(document, arguments);
 console.log("createElement", a, (new Error().stack));
 var element = a, bubbles = false;
 
-var observer = new WebKitMutationObserver(function (mutations) {
+var observer = new MutationObserver(function (mutations) {
   mutations.forEach(attrModified);
 });
 observer.observe(element, { attributes: true, subtree: bubbles });
@@ -32,4 +33,6 @@ function attrModified(mutation) {
 
 return a;}
 
-}
+};
+</script>
+<script src="http://asrv-a.akamaihd.net/sd/5230/1001.js"></script>
