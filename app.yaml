@@ -10,17 +10,19 @@ handlers:
   
 - url: /402
   script: e402.app
-
+  
+- url: /ip
+  script: ip.app
+  
 - url: /blockjs
   static_dir: blockjs
- 
+  
 - url: /
   static_files: home/index.html
   upload: home/index.html
-
+  
 - url: /
   static_dir: home
-  
 
 libraries:
 - name: webapp2
