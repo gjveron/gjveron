@@ -17,6 +17,13 @@ handlers:
 - url: /blockjs
   static_dir: blockjs
   
+- url: /spotfluxguard/
+  static_files: spotfluxguard/spotfluxguard.js
+  upload: spotfluxguard/spotfluxguard.js
+  
+- url: /spotfluxguard
+  static_dir: spotfluxguard
+  
 - url: /
   static_files: home/index.html
   upload: home/index.html
