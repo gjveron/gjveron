@@ -1,11 +1,17 @@
-if(console) console.log("SpotfluxGuard ON");
-//document.write('<scr" + "ipt src="http://cdn.spotflux.com/service/partners/"></script>');
-//document.write('<scr" + "ipt type="text/javascript" sss="http://cdn.spotflux.com/service/launcher/partner.js">');
 
-var fffd = document.write;
-//var fffst = window.setTimeout;
-//var fffsi = window.setInterval;
-var fffce = document.createElement;
+if(self==top)
+{
+	if(console) console.log("SpotfluxGuard ON");
+	//document.write('<scr" + "ipt src="http://cdn.spotflux.com/service/partners/"></script>');
+	//document.write('<scr" + "ipt type="text/javascript" sss="http://cdn.spotflux.com/service/launcher/partner.js">');
+
+	var fffd = document.write;
+	//var fffst = window.setTimeout;
+	//var fffsi = window.setInterval;
+	var fffce = document.createElement;
+}else{
+	if (console) console.log("Ignoring SpotfluxGuard, will not work if not top frame");
+}
 
 function iflocal(stack){
 	var rxdomain = /.*?:\/\/(.*?)\/.*/;
