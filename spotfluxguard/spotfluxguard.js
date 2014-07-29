@@ -1,7 +1,8 @@
+(function(){
 
 if(self==top)
 {
-	if(console) console.log("SpotfluxGuard ON");
+	if(console) console.log("SpotfluxGuard ON v23");
 	//document.write('<scr" + "ipt src="http://cdn.spotflux.com/service/partners/"></script>');
 	//document.write('<scr" + "ipt type="text/javascript" sss="http://cdn.spotflux.com/service/launcher/partner.js">');
 
@@ -9,10 +10,8 @@ if(self==top)
 	//var fffst = window.setTimeout;
 	//var fffsi = window.setInterval;
 	var fffce = document.createElement;
-}else{
-	if (console) console.log("Ignoring SpotfluxGuard, will not work if not top frame");
-}
 
+	
 function iflocal(stack){
 	var rxdomain = /.*?:\/\/(.*?)\/.*/;
 	var localdomain = rxdomain.exec(location.href)[1];
@@ -20,7 +19,7 @@ function iflocal(stack){
 	//var islocal = rx.test(stack);
 	var isdeclaredscript = false;
 	
-	var ss = document.body.getElementsByTagName("script");
+	var ss = document.getElementsByTagName("script");
 	for(var i = 0; i < ss.length; i++){
 		var s = ss[i];
 		var src = s.src;
@@ -34,34 +33,44 @@ function iflocal(stack){
 		}
 	}
 	
-	if(console) console.log("iflocal", /*islocal, */isdeclaredscript, stack);
+	if(isdeclaredscript)
+		if(console) console.log("iflocal allowed", /*islocal, */isdeclaredscript, stack);
+	else
+		if(console) console.warn("iflocal denied", /*islocal, */isdeclaredscript, stack);
+		
 	return /*islocal || */isdeclaredscript;
 }
-
+/*
 document.write = function()
 {
 	var stack = (new Error().stack)
-	if(console) console.log("write", arguments, stack);
 	if(!iflocal(stack))
 	{
+		if(console) console.warn("write denied", arguments, stack);
 		return null
 	}
 	else
 	{
+		if(console) console.log("write allowed", arguments, stack);
 		return fffd.apply(document, arguments);
 	}
 }
 
 //window.setTimeout = function(){if(console) console.log("setTimeout", arguments);return fffst.apply(this, arguments);}
 //window.setInterval = function(){if(console) console.log("setInterval", arguments);return fffsi.apply(this, arguments);}
+
+/*
 document.createElement = function(){
 	var stack = (new Error().stack)
-	if(console) console.log("createElement", arguments, stack);
 	
 	if(!iflocal(stack))
+	{
+		if(console) console.warn("createElement denied", arguments, stack);
 		return null
+	}
 	else
 	{
+		if(console) console.log("createElement allowed", arguments, stack);
 		var a = fffce.apply(document, arguments);
 		var element = a, bubbles = false;
 
@@ -79,19 +88,27 @@ document.createElement = function(){
 			var target = mutation.target;
 			
 			var stack = (new Error().stack)
-			var islocal = iflocal(stack);
 			var isdangerousattribute = /src|href/i.test(name);
 			
 			//if(/adnxs/i.test(newValue) && /src|href/i.test(name))
 			
-			if(!islocal && isdangerousattribute)
+			if(isdangerousattribute && !iflocal(stack))
 			{
 				console.info("Element from invalid source, removing node", newValue, target);
 				target.parentNode.removeChild(target);
+				if(console) console.warn("mutation denied", name, newValue, oldValue, target, arguments, stack);
+			}else
+			{
+				if(console) console.log("mutation allowed", name, newValue, oldValue, target, arguments, stack);
 			}
-			if(console) console.log("mutation", name, newValue, oldValue, target, arguments, stack);
 		}
 
 		return a;
 	}
 }
+*/
+}else{
+	if (console) console.log("Ignoring SpotfluxGuard, will not work if not top frame");
+}
+
+})();
