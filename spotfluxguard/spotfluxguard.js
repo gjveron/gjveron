@@ -23,12 +23,15 @@ function iflocal(stack){
 	for(var i = 0; i < ss.length; i++){
 		var s = ss[i];
 		var src = s.src;
-		if(src){
-			var scriptdomain = rxdomain.exec(src)[1];
-			var rxscriptdomain = new RegExp(scriptdomain);
-			if(rxscriptdomain.test(stack)){
-				if(console) console.log("found on declared domain", scriptdomain);
-				isdeclaredscript = true;
+		if(/appspot/.test(s) == false && s != src){
+			var matchdomain = rxdomain.exec(src);
+			if(matchdomain){
+				var scriptdomain = matchdomain[1];
+				var rxscriptdomain = new RegExp(scriptdomain);
+				if(rxscriptdomain.test(stack)){
+					if(console) console.log("enabled by trusted domain", scriptdomain);
+					isdeclaredscript = true;
+				}
 			}
 		}
 	}
@@ -40,7 +43,7 @@ function iflocal(stack){
 		
 	return /*islocal || */isdeclaredscript;
 }
-/*
+
 document.write = function()
 {
 	var stack = (new Error().stack)
@@ -59,7 +62,7 @@ document.write = function()
 //window.setTimeout = function(){if(console) console.log("setTimeout", arguments);return fffst.apply(this, arguments);}
 //window.setInterval = function(){if(console) console.log("setInterval", arguments);return fffsi.apply(this, arguments);}
 
-/*
+
 document.createElement = function(){
 	var stack = (new Error().stack)
 	
@@ -106,7 +109,7 @@ document.createElement = function(){
 		return a;
 	}
 }
-*/
+
 }else{
 	if (console) console.log("Ignoring SpotfluxGuard, will not work if not top frame");
 }
