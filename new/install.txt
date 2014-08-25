@@ -1,0 +1,3 @@
+bower install --save Polymer/platform Polymer/polymer
+bower install Polymer/core-elements
+bower install Polymer/polymer-ui-elements
