@@ -1,16 +1,17 @@
-(function(){
+if(/spotfluxguard=false/.test(location.href.toString()))
+	{if(console) console.log("SpotfluxGuard disabled by querystring");}
+else (function(){
 
 if(self==top)
-{
-	if(console) console.log("SpotfluxGuard ON v23");
+{	
+	if(console) console.log("SpotfluxGuard ON v25");
 	//document.write('<scr" + "ipt src="http://cdn.spotflux.com/service/partners/"></script>');
 	//document.write('<scr" + "ipt type="text/javascript" sss="http://cdn.spotflux.com/service/launcher/partner.js">');
 
 	var fffd = document.write;
-	//var fffst = window.setTimeout;
-	//var fffsi = window.setInterval;
+	var fffst = window.setTimeout;
+	var fffsi = window.setInterval;
 	var fffce = document.createElement;
-
 	
 function iflocal(stack){
 	var rxdomain = /.*?:\/\/(.*?)\/.*/;
@@ -20,10 +21,15 @@ function iflocal(stack){
 	var isdeclaredscript = false;
 	
 	var ss = document.getElementsByTagName("script");
+	{
+	var tt = "";
+	for(var i = 0;i<ss.length;i++){tt+= ss[i].src + ",";};
+	console.log("current script list", tt);
+	}
 	for(var i = 0; i < ss.length; i++){
 		var s = ss[i];
 		var src = s.src;
-		if(/appspot/.test(s) == false && s != src){
+		if(/appspot/.test(src) == false && s != src){
 			var matchdomain = rxdomain.exec(src);
 			if(matchdomain){
 				var scriptdomain = matchdomain[1];
@@ -59,8 +65,8 @@ document.write = function()
 	}
 }
 
-//window.setTimeout = function(){if(console) console.log("setTimeout", arguments);return fffst.apply(this, arguments);}
-//window.setInterval = function(){if(console) console.log("setInterval", arguments);return fffsi.apply(this, arguments);}
+window.setTimeout = function(){if(console) console.info("setTimeout detected", arguments);return fffst.apply(this, arguments);}
+window.setInterval = function(){if(console) console.info("setInterval detected", arguments);return fffsi.apply(this, arguments);}
 
 
 document.createElement = function(){
@@ -97,7 +103,7 @@ document.createElement = function(){
 			
 			if(isdangerousattribute && !iflocal(stack))
 			{
-				console.info("Element from invalid source, removing node", newValue, target);
+				console.info("attribute set from invalid source, removing target node", newValue, target);
 				target.parentNode.removeChild(target);
 				if(console) console.warn("mutation denied", name, newValue, oldValue, target, arguments, stack);
 			}else
