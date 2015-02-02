@@ -29,6 +29,10 @@ handlers:
   
 - url: /spotfluxguard
   static_dir: spotfluxguard
+
+- url: /spotfluxannouncement
+  static_dir: spotfluxannouncement
+
   
 - url: /
   static_files: home/index.html

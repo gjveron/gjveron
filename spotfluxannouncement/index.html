@@ -1,0 +1,25 @@
+<html>
+<head>
+<script>
+(function(){
+ if (navigator.userAgent.indexOf("Win")!=-1){
+ 
+	var handler = function(){
+		var d = document.createElement("tag"); 
+d.setAttribute("style", "position: fixed;height:100%;width: 100%;background-color: rgba(0,0,0,0.5);top: 0;left: 0;");
+d.innerHTML="<tag style=\"margin:0 auto; width:400px;display:block;\"><tag style=\"margin:0;padding: 15px 0;display:block;background: url(//www.spotflux.com/images/logo.png) 213px 185px no-repeat white;border:1px solid black;box-shadow: 0px 0px 10px 1px rgba(119, 119, 119, 0.75);position:absolute; width:400px; height:200px;top: 150px;text-align:center;font-family:tahoma;color:#666666\"><tag style=\"display:block;font-weight:bold;font-size:16px;margin-bottom:12px;\">SPOTFLUX ANNOUNCEMENT</tag><tag style=\"display:block;font-size:13px;\">You are running an old version of spotflux that is no longer supported. Please download the update below and upgrade: </tag><tag style=\"border-bottom:2px solid #31AE76;display:block;position:absolute;bottom:52px; padding:0 0 30px 0; width:100%\"><tag style=\"width: 100%;display: block;color: #FFF;font-size: 14px;background-color: #1a1a1a;padding: 10px 0;margin: 15px 0-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px; cursor:pointer; width:200px; margin:0 auto;\" onclick=\"location.href='https://www.spotflux.com/downloads/sf-install-web.exe'\"><tag style=\"background: url('https://www.spotflux.com/images/ic_windows.png') no-repeat left center;height: 25px;line-height: 25px;padding: 5px 0 5px 30px;\">DOWNLOAD WINDOWS</tag></tag></tag></tag></tag>";  
+document.body.appendChild(d)}
+	}
+	var element = window;
+	if(element.addEventListener) {
+      element.addEventListener("load", handler, false);
+   } else {
+      element.attachEvent('onload', handler);
+   }
+ 
+ })();
+ </script>
+ </head>
+ <body><h1>Hi!</h1>
+ </body>
+ </html>

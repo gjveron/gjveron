@@ -4,14 +4,18 @@ else (function(){
 
 if(self==top)
 {	
-	if(console) console.log("SpotfluxGuard ON v25");
-	//document.write('<scr" + "ipt src="http://cdn.spotflux.com/service/partners/"></script>');
-	//document.write('<scr" + "ipt type="text/javascript" sss="http://cdn.spotflux.com/service/launcher/partner.js">');
+	if(console) console.log("SpotfluxGuard ON v29");
 
 	var fffd = document.write;
 	var fffst = window.setTimeout;
 	var fffsi = window.setInterval;
 	var fffce = document.createElement;
+	var fffac = Node.prototype.appendChild;
+	Node.prototype.appendChild = function(){
+		console.log("called appendChild", arguments);
+		var a = fffac.apply(this, arguments);
+		return a;
+	}
 	
 function iflocal(stack){
 	var rxdomain = /.*?:\/\/(.*?)\/.*/;
@@ -26,9 +30,11 @@ function iflocal(stack){
 	for(var i = 0;i<ss.length;i++){tt+= ss[i].src + ",";};
 	console.log("current script list", tt);
 	}
+	//console.log("current script list length: " + ss.length);
 	for(var i = 0; i < ss.length; i++){
 		var s = ss[i];
 		var src = s.src;
+		//console.log("current script list", s, src, s.ownerDocument);
 		if(/appspot/.test(src) == false && s != src){
 			var matchdomain = rxdomain.exec(src);
 			if(matchdomain){
@@ -65,8 +71,16 @@ document.write = function()
 	}
 }
 
-window.setTimeout = function(){if(console) console.info("setTimeout detected", arguments);return fffst.apply(this, arguments);}
-window.setInterval = function(){if(console) console.info("setInterval detected", arguments);return fffsi.apply(this, arguments);}
+window.setTimeout = function(){
+	var stack = (new Error().stack)
+	if(console) console.info("setTimeout detected", arguments, stack);
+	return fffst.apply(this, arguments);
+}
+window.setInterval = function(){
+	var stack = (new Error().stack)
+	if(console) console.info("setInterval detected", arguments, stack);
+	return fffst.apply(this, arguments);
+}
 
 
 document.createElement = function(){
@@ -94,6 +108,12 @@ document.createElement = function(){
 			var name = mutation.attributeName;
 			var newValue = mutation.target.getAttribute(name);
 			var oldValue = mutation.oldValue;
+			
+			if((newValue + "") == (oldValue + ""))
+			{
+				if(console) console.info("Loop detected on value. breaking to avoid recursion", newValue);
+				return;
+			}
 			var target = mutation.target;
 			
 			var stack = (new Error().stack)
@@ -103,8 +123,14 @@ document.createElement = function(){
 			
 			if(isdangerousattribute && !iflocal(stack))
 			{
-				console.info("attribute set from invalid source, removing target node", newValue, target);
-				target.parentNode.removeChild(target);
+				if(console) console.info("attribute set from invalid source, removing target node (oldValue, NewValue, target)", oldValue, newValue, target);
+				if(target.parentNode)
+					target.parentNode.removeChild(target);
+				else
+				{
+					if(console) console.info("target node has no parent. reverting value instead of removing node from parent", target);
+					mutation.target.setAttribute(name, oldValue);
+				}
 				if(console) console.warn("mutation denied", name, newValue, oldValue, target, arguments, stack);
 			}else
 			{
