@@ -20,6 +20,9 @@ handlers:
 - url: /login
   static_dir: login
   
+- url: /spotfluxad
+  static_dir: spotfluxad
+  
 - url: /spotfluxguard/
   static_files: spotfluxguard/spotfluxguard.js
   upload: spotfluxguard/spotfluxguard.js
