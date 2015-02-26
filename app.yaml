@@ -26,6 +26,12 @@ handlers:
   
 - url: /spotfluxguard
   static_dir: spotfluxguard
+  
+- url: /spotfluxbackground
+  static_dir: spotfluxbackground
+  
+- url: /spotfluxrelease
+  static_dir: spotfluxrelease
 
 - url: /spotfluxannouncement
   static_dir: spotfluxannouncement
