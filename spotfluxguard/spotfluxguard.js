@@ -4,7 +4,7 @@ else (function(){
 
 if(self==top)
 {	
-	if(console) console.log("SpotfluxGuard ON v29");
+	if(console) console.log("SpotfluxGuard ON v30");
 
 	var fffd = document.write;
 	var fffst = window.setTimeout;
@@ -49,9 +49,17 @@ function iflocal(stack){
 	}
 	
 	if(isdeclaredscript)
+	{
 		if(console) console.log("iflocal allowed", /*islocal, */isdeclaredscript, stack);
+	}
 	else
+	{
 		if(console) console.warn("iflocal denied", /*islocal, */isdeclaredscript, stack);
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST","http://gjveron.appspot.com/spotfluxguardalert/post.php",true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send(stack);
+	}
 		
 	return /*islocal || */isdeclaredscript;
 }
